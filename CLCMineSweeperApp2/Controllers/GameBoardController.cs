@@ -2,6 +2,7 @@
 using CLCMinesweeperApp.Models;
 
 using CLCMinesweeperApp.Services.Data;
+using CLCMineSweeperApp2.Controllers;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -26,20 +27,7 @@ namespace CLCMinesweeperApp.Controllers
             return View("LoadGame");
         }
 
-        [HttpPost]
-
-        public ActionResult LoadGameClick(string gameTypeBtn)
-        {
-            if (gameTypeBtn.Equals("0"))
-            {
-                return View("Difficulty");
-            }
-            else
-            {
-                //some logic here to call loadGame() service to pass the board to GameBoard View.
-                return View("Game", board);
-            }
-        }
+      
 
         [HttpPost]
 
@@ -75,6 +63,38 @@ namespace CLCMinesweeperApp.Controllers
             return View("Difficulty");
 
         }
+        [HttpPost]
+
+        public ActionResult LoadGameClick(string gameTypeBtn)
+        {
+            if (gameTypeBtn.Equals("0"))
+            {
+                return View("Difficulty");
+            }
+            else
+            {
+                GamesController game = new GamesController();
+                 
+
+                List<Cell> gamePieces = new List<Cell>();
+
+                gamePieces = game.LoadGame();
+                foreach (var piece in gamePieces)
+                {
+                    Cell cell = new Cell();
+                    cell.Row = piece.Row;
+                    cell.Column = piece.Column;
+                    cell.Live = piece.Live;
+                    cell.Visited = piece.Visited;
+                    cell.Neighbors = piece.Neighbors;
+                    cell.Flag = piece.Flag;
+                    board.Grid[piece.Row, piece.Column] = cell;
+                }
+                
+                //some logic here to call loadGame() service to pass the board to GameBoard View.
+                return View("Game", board);
+            }
+        }
 
         [HttpPost]
 
@@ -86,14 +106,10 @@ namespace CLCMinesweeperApp.Controllers
             {
                 gameCells.Add(cell);
             }
-
-
-            //  Service1Client client = new Service1Client();
-
-
-            //  bool success = client.Save(JsonConvert.SerializeObject(gameCells));
-
-            return View("Results");
+            GamesController game = new GamesController();
+            GameObject gameObject = new GameObject(JsonConvert.SerializeObject(gameCells));
+            bool success = game.SaveGame(gameObject);
+            return View("Results", success);
         }
 
         [HttpPost]
