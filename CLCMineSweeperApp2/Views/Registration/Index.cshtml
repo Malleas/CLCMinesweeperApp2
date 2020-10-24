@@ -1,0 +1,149 @@
+﻿@using CLCMinesweeperApp.Models;
+@model CLCMinesweeperApp.Models.Player
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    input[type=text],input[type=number], select, textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-top: 6px;
+        margin-bottom: 16px;
+        resize: vertical;
+    }
+
+    input[type=submit] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+
+    .container {
+        border-radius: 5px;
+        background-color: #ecf0e9;
+        padding: 20px;
+    }
+
+    .nav-header {
+        background-color: #21401f;
+        color: white;
+    }
+
+        .container signin {
+            padding: 16px;
+            background-color: white;
+        }
+</style>
+
+@using (Html.BeginForm("Registration", "Registration", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="container" align="center">
+        <div class="form-horizontal">
+            <h3 align="center" style="font-family:Impact">Player Registration</h3>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div>
+                <label for="firstName" align="center"><b>First Name:</b></label>
+                <div>
+                    @Html.EditorFor(model => model.firstName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div>
+                <label for="lastname" align="center"><b>Last Name:</b></label>
+                <div>
+                    @Html.EditorFor(model => model.lastname, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.lastname, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div>
+                <label for="gender" align="center"><b>Gender:</b></label>
+                <div>
+                    @Html.DropDownListFor(model => model.gender, new SelectList(Enum.GetValues(typeof(Player.Gender))))
+                    @Html.ValidationMessageFor(model => model.gender, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div>
+
+                <label for="state" align="center"><b>State:</b></label>
+                <div>
+                    @Html.DropDownListFor(model => model.state, new SelectList(Enum.GetValues(typeof(Player.States))))
+                    @Html.ValidationMessageFor(model => model.state, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div>
+                <label for="emailAddress" align="center"><b>Email:</b></label>
+                <div>
+                    @Html.EditorFor(model => model.emailAddress, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.emailAddress, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div>
+
+                <label for="Age" align="center"><b>Age:</b></label>
+                <div>
+                    @Html.EditorFor(model => model.age, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.age, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div>
+                <label for="userName" align="center"><b>Username:</b></label>
+                <div>
+                    @Html.EditorFor(model => model.userName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.userName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div>
+                <label for="password" align="center"><b>Password:</b></label>
+                <div>
+                    @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div>
+                    <input type="submit" value="Register" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+        </div>
+        }
+
+        <div align ="center">
+            @Html.ActionLink("Already Registered?", "../Login/Index")
+        </div>
+
+        <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

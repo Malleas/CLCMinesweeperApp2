@@ -1,0 +1,107 @@
+﻿@model CLCMinesweeperApp.Models.UserLogin
+
+@{
+                /**/
+
+                ViewBag.Title = "Index";
+}
+
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    input[type=text], select, textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-top: 6px;
+        margin-bottom: 16px;
+        resize: vertical;
+    }
+
+    input[type=submit] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+
+    .container {
+        border-radius: 5px;
+        background-color: #ecf0e9;
+        padding: 20px;
+    }
+
+    .nav-header {
+        background-color: #21401f;
+        color: white;
+
+    }
+
+        .container signin {
+            padding: 16px;
+            background-color: white;
+        }
+</style>
+
+
+
+
+
+
+@using (Html.BeginForm("Login", "Login", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+<div class="container" align="center">
+    <h3 align="center"style="font-family:Impact">Login</h3>
+
+    <div>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <label for="userName" align="center"><b>Username:</b></label>
+        <div class="form-group">
+
+            <div>
+                @Html.EditorFor(model => model.userName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.userName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <label for="password" align="center"><b>Password:</b></label>
+        <div>
+
+            <div>
+                @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div>
+            <div>
+                <input type="submit" value="Login" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</div>
+        }
+
+        <div align ="center">
+            @Html.ActionLink("Not registered?", "../Registration/Index")
+        </div>
+
+        <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

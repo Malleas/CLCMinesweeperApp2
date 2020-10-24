@@ -1,0 +1,27 @@
+﻿@model bool
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Results</title>
+</head>
+<body>
+    <div> 
+        @{ 
+            if (Model)
+            {
+                <p>Success</p>
+            }
+            else
+            {
+                <p>Fail</p>
+            }
+        }
+    </div>
+</body>
+</html>

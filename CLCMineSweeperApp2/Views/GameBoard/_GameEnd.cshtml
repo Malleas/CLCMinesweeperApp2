@@ -1,0 +1,12 @@
+﻿@model CLCMinesweeperApp.Models.Board
+
+@Html.BeginForm("ContinueGame", "GameBoard", FormMethod.Post){
+<div>
+    <h2>Game over, would you like to play again?</h2>
+    <button id="yes" type="submit" name="continueBtn" value="0">Yes</button>
+    <button id="no" type="submit" name="continueBtn" value="1">No</button>
+</div>
+ }
+
+
+
