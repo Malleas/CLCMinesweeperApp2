@@ -98,9 +98,10 @@
                     console.log("event 3. right click");
                     console.log(this.getAttribute("value"));
 
+
                     $.post('@Url.Action("OnRightClick", "GameBoard")', { button: this.getAttribute("value") }, function (data) {
 
-                       
+
 
                     });
                 }
@@ -181,6 +182,8 @@
 
                                             <!--Winning condition needs to be added-->
                                         }
+
+
                                     </button>
 
 
@@ -195,9 +198,21 @@
 
 
 
+
+
                 }
             </table>
         }
     </div>
+
+    @{
+
+        if (CLCMinesweeperApp.Models.Board.GameOver == true)
+        {
+            <div>
+                @Html.Partial("~/Views/GameBoard/_GameEnd.cshtml")
+            </div>
+        }
+    }
 </body>
 </html>

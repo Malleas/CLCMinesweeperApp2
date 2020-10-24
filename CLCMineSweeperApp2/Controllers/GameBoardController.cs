@@ -72,6 +72,8 @@ namespace CLCMinesweeperApp.Controllers
             {
                 Environment.Exit(0);
             }
+
+            Board.GameOver = false;
             return View("Difficulty");
 
         }
@@ -100,6 +102,7 @@ namespace CLCMinesweeperApp.Controllers
 
         public ActionResult onRightClick(string button)
         {
+            
             string[] strArr = button.Split('|');
             int row = int.Parse(strArr[0]);
             int col = int.Parse(strArr[1]);
@@ -111,19 +114,21 @@ namespace CLCMinesweeperApp.Controllers
 
         public ActionResult OnClick(string button)
         {
-
+            
             string[] strArr = button.Split('|');
             int row = int.Parse(strArr[0]);
             int col = int.Parse(strArr[1]);
             int currentLiveCount = 0;
             int currentVisitedCount = 0;
 
-
+            Console.Write("checking the clicked button value");
             if (board.Grid[row, col].Live)
             {
                 foreach (var cell in board.Grid)
                 {
+                    //Console.Write("clicked a bomb");
                     cell.Visited = true;
+                    
                     Board.GameOver = true;
 
                 }

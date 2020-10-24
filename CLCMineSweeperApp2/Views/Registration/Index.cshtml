@@ -15,7 +15,7 @@
         box-sizing: border-box;
     }
 
-    input[type=text],input[type=number], select, textarea {
+    input[type=text], input[type=number], select, textarea {
         width: 100%;
         padding: 12px;
         border: 1px solid #ccc;
@@ -50,10 +50,10 @@
         color: white;
     }
 
-        .container signin {
-            padding: 16px;
-            background-color: white;
-        }
+    .container signin {
+        padding: 16px;
+        background-color: white;
+    }
 </style>
 
 @using (Html.BeginForm("Registration", "Registration", FormMethod.Post))
@@ -137,13 +137,14 @@
                 </div>
             </div>
         </div>
-        </div>
-        }
+    </div>
+}
 
-        <div align ="center">
-            @Html.ActionLink("Already Registered?", "../Login/Index")
-        </div>
+<div align="center">
+    @Html.ActionLink("Already Registered?", "../Login/Index")
+</div>
 
-        <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-        <script src="~/Scripts/jquery.validate.min.js"></script>
-        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<script src="~/Scripts/jquery-3.5.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

@@ -25,7 +25,7 @@ namespace CLCMinesweeperApp.Controllers
 
             if (securityService.Authenticate(user))
             {
-                return View("../GameBoard/Difficulty");
+                return View("../GameBoard/LoadGame");
             }
             else
             {
