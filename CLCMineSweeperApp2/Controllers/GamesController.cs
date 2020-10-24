@@ -1,5 +1,9 @@
-﻿using System;
+﻿using CLCMinesweeperApp.Models;
+using CLCMinesweeperApp.Services.Data;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
@@ -12,11 +16,11 @@ namespace CLCMineSweeperApp2.Controllers
     public class GamesController : ApiController
     {
         // GET: api/Games
-        public List<string> Get()
+        public List<Cell> LoadGame()
         {
             string connectionString = "Server =.; Database = minesweeperApp; Trusted_Connection = True";
-            string query = "SELECT * FROM dbo.Game ";
-            List<string> results = new List<string>();
+            string query = "Select TOP (1) * from dbo.Game Order by id desc";
+            List<Cell> results = new List<Cell>();
             //bool results = false;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -30,7 +34,7 @@ namespace CLCMineSweeperApp2.Controllers
                     {
                         while (reader.Read())
                         {
-                            results.Add(reader.GetString(1));
+                            results.Add( JsonConvert.DeserializeObject<Cell>(reader.GetString(1)));
                         }
                     }
 
@@ -91,14 +95,40 @@ namespace CLCMineSweeperApp2.Controllers
         }
 
         // POST: api/Default
-        public void Post([FromBody]string value)
+        public bool SaveGame(GameObject gameObject)
         {
+            string connectionString = "Server =.; Database = minesweeperApp; Trusted_Connection = True";
+            string query = "INSERT INTO dbo.Game (Gameboard) VALUES (@Gameboard) ";
+            bool results = false;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.Add("@Gameboard", SqlDbType.Text).Value = gameObject.JsonString;
+                    command.Connection.Open();
+                    command.ExecuteNonQuery();
+                    results = true;
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Debug.WriteLine(ex.Message);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+            return results;
         }
 
 
         // DELETE: api/Default/5
         public void Delete(int id)
         {
+          
         }
     }
 }
