@@ -18,6 +18,8 @@ namespace CLCMinesweeperApp.Models
        
         static public bool GameOver { get; set; }
 
+       
+
         public Board(int size, int difficulty)
         {
             Size = size;

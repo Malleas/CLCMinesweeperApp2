@@ -108,26 +108,71 @@
             tick();
         }
     </script>
+
+
+    <script>
+        var count = (function () {
+
+            var counter = 0;
+            return function () { return counter += 1; }
+
+        })();
+
+        function upDateClicks() {
+            document.getElementById("clickCounter").innerHTML = count();
+        }
+
+    </script>
 </head>
 <body>
+
     <h2 align="center">Welcome and good luck!</h2>
     <div>
+        @{string stats = ""; }
+
+
         Seconds: <span id="time">0</span><br />
-       
-        @using (Html.BeginForm("SaveGame", "GameBoard", FormMethod.Post)) {
-           <button name="SaveGameBtn" type="submit">Save Game</button>
+        <div>
+            <p id="clickCounter">
+
+            </p>
+
+
+        </div>
+
+
+
+
+        @using (Html.BeginForm("SaveGame", "GameBoard", FormMethod.Post, new { id = "signupform" }))
+        {
+            <input type="hidden" id="Value" name="Value" value="foo" />
+            <button name="SaveGameBtn" onclick="myfunc()" type="submit">Save Game</button>
+            <script>
+                function myfunc() {
+                    var time = document.getElementById("time").innerHTML;
+                    var clicks = document.getElementById("clickCounter").innerHTML;
+                    var stats = time + "|" + clicks;
+                    document.getElementById("Value").value = stats;
+                }
+            </script>
         }
     </div>
 
-   
-        <div align="center" id="Gameboard">
-            @Html.Partial("~/Views/GameBoard/_GameBoard.cshtml")
-        </div>
-
-    
 
 
-    </body>
+
+
+
+
+
+
+    <div align="center" id="Gameboard">
+        @Html.Partial("~/Views/GameBoard/_GameBoard.cshtml")
+    </div>
+
+
+
+</body>
 </html>
 
 

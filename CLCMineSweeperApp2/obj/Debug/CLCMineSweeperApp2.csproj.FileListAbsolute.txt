@@ -165,3 +165,8 @@ C:\Users\Unico\Source\Repos\Malleas\CLCMinesweeperApp2\CLCMineSweeperApp2\bin\ro
 C:\Users\Unico\Source\Repos\Malleas\CLCMinesweeperApp2\CLCMineSweeperApp2\bin\roslyn\System.Net.Sockets.dll
 C:\Users\Unico\Source\Repos\Malleas\CLCMinesweeperApp2\CLCMineSweeperApp2\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
 C:\Users\Unico\Source\Repos\Malleas\CLCMinesweeperApp2\CLCMineSweeperApp2\bin\roslyn\System.Threading.Tasks.Extensions.dll
+C:\Users\Unico\Source\Repos\Malleas\CLCMinesweeperApp2\CLCMineSweeperApp2\bin\roslyn\System.IO.Pipes.AccessControl.dll
+C:\Users\Unico\Source\Repos\Malleas\CLCMinesweeperApp2\CLCMineSweeperApp2\bin\roslyn\System.IO.Pipes.dll
+C:\Users\Unico\Source\Repos\Malleas\CLCMinesweeperApp2\CLCMineSweeperApp2\bin\roslyn\System.Security.AccessControl.dll
+C:\Users\Unico\Source\Repos\Malleas\CLCMinesweeperApp2\CLCMineSweeperApp2\bin\roslyn\System.Security.Claims.dll
+C:\Users\Unico\Source\Repos\Malleas\CLCMinesweeperApp2\CLCMineSweeperApp2\bin\roslyn\System.Security.Principal.Windows.dll

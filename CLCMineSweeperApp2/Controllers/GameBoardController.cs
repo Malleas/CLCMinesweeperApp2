@@ -20,6 +20,8 @@ namespace CLCMinesweeperApp.Controllers
         static private Board board = new Board(size, difficulty);
         int liveCount = 0;
         int visitedCount = 0;
+        int clickCount = 0;
+       
         // GET: GameBoard
         public ActionResult Index()
         {
@@ -33,6 +35,7 @@ namespace CLCMinesweeperApp.Controllers
 
         public ActionResult DifficultyClick(string difficulty)
         {
+            
             if (difficulty.Equals("1"))
             {
                 Board.Difficulty = 2;
@@ -81,16 +84,12 @@ namespace CLCMinesweeperApp.Controllers
                 List<Cell> gamePieces = new List<Cell>();
 
                 gamePieces = game.LoadGame();
+
+                board.Grid = new Cell[size, size];
+                
                 foreach (var piece in gamePieces)
                 {
-                    Cell cell = new Cell();
-                    cell.Row = piece.Row;
-                    cell.Column = piece.Column;
-                    cell.Live = piece.Live;
-                    cell.Visited = piece.Visited;
-                    cell.Neighbors = piece.Neighbors;
-                    cell.Flag = piece.Flag;
-                    board.Grid[piece.Row, piece.Column] = cell;
+                    board.Grid[piece.Row, piece.Column] = piece ;
                 }
                 
                 //some logic here to call loadGame() service to pass the board to GameBoard View.
@@ -100,15 +99,21 @@ namespace CLCMinesweeperApp.Controllers
 
         [HttpPost]
 
-        public ActionResult SaveGame()
+        public ActionResult SaveGame(string Value)
         {
+            GamesController game = new GamesController();
+            string[] strArr = Value.Split('|');
+            int time = int.Parse(strArr[0]);
+            int clicks = int.Parse(strArr[1]);
+            game.SaveStats(time, clicks);
+
 
             List<Cell> gameCells = new List<Cell>();
             foreach (var cell in board.Grid)
             {
                 gameCells.Add(cell);
             }
-            GamesController game = new GamesController();
+            
             GameObject gameObject = new GameObject(JsonConvert.SerializeObject(gameCells));
             bool success = game.SaveGame(gameObject);
             return View("Results", success);
@@ -130,12 +135,19 @@ namespace CLCMinesweeperApp.Controllers
 
         public ActionResult OnClick(string button)
         {
+
+            
             
             string[] strArr = button.Split('|');
             int row = int.Parse(strArr[0]);
             int col = int.Parse(strArr[1]);
             int currentLiveCount = 0;
             int currentVisitedCount = 0;
+
+            
+
+            clickCount = clickCount + 1;
+            Console.Write("Click Count = " + clickCount);
 
             Console.Write("checking the clicked button value");
             if (board.Grid[row, col].Live)

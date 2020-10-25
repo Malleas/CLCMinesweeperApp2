@@ -145,6 +145,7 @@
     <Compile Include="Models\Cell.cs" />
     <Compile Include="Models\GameObject.cs" />
     <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\StatsObject.cs" />
     <Compile Include="Models\UserLogin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\Business\SecurityService.cs" />
