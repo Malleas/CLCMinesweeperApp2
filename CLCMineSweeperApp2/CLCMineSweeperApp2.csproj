@@ -152,6 +152,7 @@
     <Compile Include="Utilities\Business\UserService.cs" />
     <Compile Include="Utilities\Data\GameDAO.cs" />
     <Compile Include="Utilities\Data\SecurityDAO.cs" />
+    <Compile Include="Utilities\Utility\ILogger.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />

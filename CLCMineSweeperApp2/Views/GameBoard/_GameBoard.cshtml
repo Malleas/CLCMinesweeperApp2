@@ -90,7 +90,26 @@
         }
     </style>
 
+      <script>
+        $(document).ready(function () {
+            $(document).contextmenu(function () {
+                return false;
+            });
+            $(".game-button").mousedown(function (event) {
+                if (event.which == 3) {
+                    console.log("event 3. right click");
+                    console.log(this.getAttribute("value"));
 
+                    $.post('@Url.Action("OnRightClick", "GameBoard")', { button: this.getAttribute("value") }, function (data) {
+
+                       
+
+                    });
+                }
+            });
+        });
+
+    </script>
 
     <script>
         var counter = 0;
@@ -103,20 +122,9 @@
             })
         }
 
-    </script>
-
-
-
-
-
-
-    
+    </script>  
 </head>
 <body>
-
-
-
- 
     <div align="center" class="Gameboard" id="Gameboard">
         @using (Ajax.BeginForm("OnClick", "GameBoard", ajaxOptions))
         {
