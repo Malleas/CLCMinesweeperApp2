@@ -133,18 +133,22 @@ namespace CLCMinesweeperApp.Controllers
 
         [HttpPost]
 
-        public ActionResult OnClick(string button)
+        public ActionResult OnClick(string indexes, string clickStatus)
         {
 
+
             
-            
-            string[] strArr = button.Split('|');
+            string[] strArr = indexes.Split('|');
             int row = int.Parse(strArr[0]);
             int col = int.Parse(strArr[1]);
             int currentLiveCount = 0;
             int currentVisitedCount = 0;
 
-            
+            if (clickStatus.Equals("3"))
+            {
+                board.Grid[row, col].Flag = true;
+                return PartialView("_GameBoard", board);
+            }
 
             clickCount = clickCount + 1;
             Console.Write("Click Count = " + clickCount);

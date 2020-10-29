@@ -25,12 +25,22 @@ namespace CLCMinesweeperApp.Controllers
 
             if (securityService.Authenticate(user))
             {
+                Session["user"] = user;
                 return View("../GameBoard/LoadGame");
             }
             else
             {
+                Session.Clear();
                 return View("LoginFailed");
             }
         }
+
+        
+        public ActionResult Protected()
+        {
+            return View("~/Views/Login/Index.cshtml");
+        }
+
+        
     }
 }

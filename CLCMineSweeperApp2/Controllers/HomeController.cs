@@ -9,9 +9,9 @@ namespace CLCMinesweeperApp.Controllers
     public class HomeController : Controller
     {
         // GET: Home
-        public String Index()
+        public ActionResult Index()
         {
-            return @"Home Page";
+            return View("~/Views/Login/Index.cshtml");
         }
 
         //GET: /Home/Registration

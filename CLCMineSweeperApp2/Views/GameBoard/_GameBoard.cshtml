@@ -91,23 +91,40 @@
     </style>
 
       <script>
+
         $(document).ready(function () {
             $(document).contextmenu(function () {
                 return false;
             });
             $(".game-button").mousedown(function (event) {
-                if (event.which == 3) {
+                if (event.which == 1) {
+
+                    document.getElementById("clickStatus").value = 1;
+                    document.getElementById("indexes").value = this.getAttribute("value");
+                    document.getElementById("myForm").submit(document.getElementById("indexes").value, document.getElementById("clickStatus").value);
+
+                }
+
+                else if(event.which==3) {
                     console.log("event 3. right click");
                     console.log(this.getAttribute("value"));
 
-                    $.post('@Url.Action("OnRightClick", "GameBoard")', { button: this.getAttribute("value") }, function (data) {
+                    //hidden field to 1 if it was a right click
+                    document.getElementById("clickStatus").value = 3;
+                    document.getElementById("indexes").value = this.getAttribute("value");
 
-                       
 
-                    });
+                    console.log("submitting form");
+
+
+
+                    document.getElementById("myForm").submit(document.getElementById("indexes").value, document.getElementById("clickStatus").value);
                 }
             });
         });
+
+
+
 
     </script>
 
@@ -126,8 +143,12 @@
 </head>
 <body>
     <div align="center" class="Gameboard" id="Gameboard">
-        @using (Ajax.BeginForm("OnClick", "GameBoard", ajaxOptions))
+        @using (Ajax.BeginForm("OnClick", "GameBoard", ajaxOptions, new { id = "myForm" }))
         {
+
+            //hidden field value 0
+            <input type="hidden" id="clickStatus" name="clickStatus" value="1" />
+            <input type="hidden" id="indexes" name="indexes" value="" />
 
 
             <table cellpadding="0" cellspacing="0" width="12" border="0">

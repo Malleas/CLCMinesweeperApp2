@@ -14,6 +14,25 @@ namespace CLCMineSweeperApp2
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+           name: "Login",
+           url: "Login",
+           defaults: new { controller = "Login", action = "Index", id = UrlParameter.Optional });
+
+           routes.MapRoute(
+                    name:   "Difficulty",
+                    url:    "Difficulty",
+                    defaults: new { controller = "Login", action = "Protected", id = UrlParameter.Optional });
+
+
+            routes.MapRoute(
+            name: "Gameboard",
+            url: "Gameboard",
+            defaults: new { controller = "Login", action = "Protected", id = UrlParameter.Optional });
+
+
+
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
