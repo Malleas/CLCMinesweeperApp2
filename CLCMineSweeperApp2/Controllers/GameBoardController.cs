@@ -3,6 +3,7 @@ using CLCMinesweeperApp.Models;
 
 using CLCMinesweeperApp.Services.Data;
 using CLCMineSweeperApp2.Controllers;
+using CLCMineSweeperApp2.Utilities.Utility;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -10,11 +11,16 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
+using Unity;
 
 namespace CLCMinesweeperApp.Controllers
 {
     public class GameBoardController : Controller
     {
+        [Dependency]
+        public ILogger logger { get; set; }
+        public GameServicesController gameService { get; set; }
+
         static private int size = 12;
         static private int difficulty = Board.Difficulty;
         static private Board board = new Board(size, difficulty);
@@ -78,7 +84,7 @@ namespace CLCMinesweeperApp.Controllers
             }
             else
             {
-                GamesController game = new GamesController();
+                GameServicesController game = new GameServicesController();
                  
 
                 List<Cell> gamePieces = new List<Cell>();
@@ -101,11 +107,11 @@ namespace CLCMinesweeperApp.Controllers
 
         public ActionResult SaveGame(string Value)
         {
-            GamesController game = new GamesController();
+            
             string[] strArr = Value.Split('|');
             int time = int.Parse(strArr[0]);
             int clicks = int.Parse(strArr[1]);
-            game.SaveStats(time, clicks);
+            gameService.SaveStats(time, clicks);
 
 
             List<Cell> gameCells = new List<Cell>();
@@ -115,29 +121,17 @@ namespace CLCMinesweeperApp.Controllers
             }
             
             GameObject gameObject = new GameObject(JsonConvert.SerializeObject(gameCells));
-            bool success = game.SaveGame(gameObject);
+            bool success = gameService.SaveGame(gameObject);
             return View("Results", success);
         }
 
-        [HttpPost]
-
-        public ActionResult onRightClick(string button)
-        {
-            
-            string[] strArr = button.Split('|');
-            int row = int.Parse(strArr[0]);
-            int col = int.Parse(strArr[1]);
-            board.Grid[row, col].Flag = true;
-            return PartialView("_GameBoard", board);
-        }
+     
 
         [HttpPost]
 
         public ActionResult OnClick(string indexes, string clickStatus)
         {
 
-
-            
             string[] strArr = indexes.Split('|');
             int row = int.Parse(strArr[0]);
             int col = int.Parse(strArr[1]);
@@ -147,6 +141,7 @@ namespace CLCMinesweeperApp.Controllers
             if (clickStatus.Equals("3"))
             {
                 board.Grid[row, col].Flag = true;
+                logger.Info("Button: " + row + "," + col + " pushed.");
                 return PartialView("_GameBoard", board);
             }
 
@@ -164,7 +159,7 @@ namespace CLCMinesweeperApp.Controllers
                     Board.GameOver = true;
 
                 }
-
+                logger.Info("Button: " + row + "," + col + " pushed.");
                 return PartialView("_GameBoard", board);
             }
             else

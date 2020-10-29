@@ -155,7 +155,7 @@
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\CustomAuthorizationAttribute.cs" />
-    <Compile Include="Controllers\GamesController.cs" />
+    <Compile Include="Controllers\GameServicesController.cs" />
     <Compile Include="Controllers\GameBoardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />

@@ -17,7 +17,7 @@ using Unity;
 
 namespace CLCMineSweeperApp2.Controllers
 {
-    public class GamesController : ApiController
+    public class GameServicesController : ApiController
     {       
 
         // GET: api/Games
