@@ -1,6 +1,7 @@
 ﻿using CLCMinesweeperApp.Models;
 using CLCMinesweeperApp.Services.Data;
 using CLCMineSweeperApp2.Models;
+using CLCMineSweeperApp2.Utilities.Utility;
 using Newtonsoft.Json;
 
 using System;
@@ -12,12 +13,13 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-
+using Unity;
 
 namespace CLCMineSweeperApp2.Controllers
 {
     public class GamesController : ApiController
-    {
+    {       
+
         // GET: api/Games
         public List<Cell> LoadGame()
         {
@@ -48,13 +50,13 @@ namespace CLCMineSweeperApp2.Controllers
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
-                    Debug.WriteLine(ex.Message);
                 }
                 finally
                 {
                     connection.Close();
                 }
             }
+           
             return results;
 
         }
@@ -87,13 +89,13 @@ namespace CLCMineSweeperApp2.Controllers
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
-                    Debug.WriteLine(ex.Message);
                 }
                 finally
                 {
                     connection.Close();
                 }
             }
+          
             return results;
 
 
@@ -119,13 +121,13 @@ namespace CLCMineSweeperApp2.Controllers
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
-                    Debug.WriteLine(ex.Message);
                 }
                 finally
                 {
                     connection.Close();
                 }
             }
+            
             return results;
         }
 
@@ -149,13 +151,13 @@ namespace CLCMineSweeperApp2.Controllers
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
-                    Debug.WriteLine(ex.Message);
                 }
                 finally
                 {
                     connection.Close();
                 }
             }
+            
             return results;
         }
 

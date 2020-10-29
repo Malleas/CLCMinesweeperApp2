@@ -1,5 +1,6 @@
 ﻿using CLCMinesweeperApp.Models;
 using CLCMinesweeperApp.Services.Data;
+using CLCMineSweeperApp2.Utilities.Utility;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -8,11 +9,17 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
+using Unity;
 
 namespace CLCMinesweeperApp.Services.Business
 {
     public class UserService
     {
+        [Dependency]
+        public ILogger logger { get; set; }
+
+
+
         public bool CreateUser(Player player)
         {
             string connectionString = "Server =.; Database = minesweeperApp; Trusted_Connection = True";
@@ -46,14 +53,14 @@ namespace CLCMinesweeperApp.Services.Business
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    logger.Error(ex.Message);
                 }
                 finally
                 {
                     connection.Close();
                 }
             }
-
+            logger.Info("New user created successfully.");
             return results;
         }
 

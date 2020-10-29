@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace CLCMineSweeperApp2.Utilities.Utility
 {
-    interface ILogger
+    public interface ILogger
     {
+       // void Initialize(ILogger logger);
+
         void Debug(string message, string arg = null);
 
         void Info(string message, string arg = null);

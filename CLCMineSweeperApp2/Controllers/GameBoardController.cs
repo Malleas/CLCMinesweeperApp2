@@ -3,18 +3,24 @@ using CLCMinesweeperApp.Models;
 
 using CLCMinesweeperApp.Services.Data;
 using CLCMineSweeperApp2.Controllers;
+using CLCMineSweeperApp2.Utilities.Utility;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.UI;
+using Unity;
 
 namespace CLCMinesweeperApp.Controllers
 {
     public class GameBoardController : Controller
     {
+        [Dependency]
+        public GamesController gameService { get; set; }
+        public ILogger logger { get; set; }
+
+
         static private int size = 12;
         static private int difficulty = Board.Difficulty;
         static private Board board = new Board(size, difficulty);
@@ -101,11 +107,11 @@ namespace CLCMinesweeperApp.Controllers
 
         public ActionResult SaveGame(string Value)
         {
-            GamesController game = new GamesController();
+            
             string[] strArr = Value.Split('|');
             int time = int.Parse(strArr[0]);
             int clicks = int.Parse(strArr[1]);
-            game.SaveStats(time, clicks);
+            gameService.SaveStats(time, clicks);
 
 
             List<Cell> gameCells = new List<Cell>();
@@ -115,13 +121,13 @@ namespace CLCMinesweeperApp.Controllers
             }
             
             GameObject gameObject = new GameObject(JsonConvert.SerializeObject(gameCells));
-            bool success = game.SaveGame(gameObject);
+            bool success = gameService.SaveGame(gameObject);
             return View("Results", success);
         }
 
         [HttpPost]
 
-        public ActionResult onRightClick(string button)
+        public PartialViewResult onRightClick(string button)
         {
             
             string[] strArr = button.Split('|');
@@ -136,15 +142,13 @@ namespace CLCMinesweeperApp.Controllers
         public ActionResult OnClick(string button)
         {
 
-            
-            
             string[] strArr = button.Split('|');
             int row = int.Parse(strArr[0]);
             int col = int.Parse(strArr[1]);
             int currentLiveCount = 0;
             int currentVisitedCount = 0;
 
-            
+            logger.Info("Left clicked on cell: " + row + "," + col);
 
             clickCount = clickCount + 1;
             Console.Write("Click Count = " + clickCount);
@@ -160,7 +164,7 @@ namespace CLCMinesweeperApp.Controllers
                     Board.GameOver = true;
 
                 }
-
+                logger.Info("Left clicked on cell: " + row + "," + col + " Cell was a bomb!");
                 return PartialView("_GameBoard", board);
             }
             else
