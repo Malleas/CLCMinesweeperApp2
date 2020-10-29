@@ -217,6 +217,10 @@
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Planning and Design\Week 7\CST-247-RS-NAP-ProjectStatusDesignReport - W7.docx" />
+    <Content Include="Planning and Design\Week 7\CST-247-RS-SprintBackLog-W7.xlsx" />
+    <Content Include="Planning and Design\Week 7\CST-247-RS-SprintBurnDown - W7.xlsx" />
+    <Content Include="Planning and Design\Week 7\CST-247-RS-SprintProductLog.xlsx" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
     <Content Include="Scripts\jquery-3.5.1.min.js" />
