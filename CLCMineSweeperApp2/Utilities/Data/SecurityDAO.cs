@@ -1,4 +1,5 @@
 ﻿using CLCMinesweeperApp.Models;
+using CLCMineSweeperApp2.Utilities.Utility;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -7,11 +8,16 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
+using Unity;
 
 namespace CLCMinesweeperApp.Services.Data
 {
     public class SecurityDAO
     {
+       [Dependency]
+        public ILogger logger { get; set; }
+       
+
         public bool FindByUser(UserLogin user)
         {
 
@@ -39,13 +45,14 @@ namespace CLCMinesweeperApp.Services.Data
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    logger.Error(ex.Message);
                 }
                 finally
                 {
                     connection.Close();
                 }
             }
+            logger.Info("User: " + user.userName + " logged in succesfully.");
             return results;
 
 

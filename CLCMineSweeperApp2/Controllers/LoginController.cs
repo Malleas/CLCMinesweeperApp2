@@ -1,15 +1,19 @@
 ﻿using CLCMinesweeperApp.Models;
 using CLCMinesweeperApp.Services.Business;
+using CLCMineSweeperApp2.Utilities.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Unity;
 
 namespace CLCMinesweeperApp.Controllers
 {
     public class LoginController : Controller
     {
+        [Dependency]
+        public SecurityService securityService { get; set; }
         // GET: Login
         public ActionResult Index()
         {
@@ -20,9 +24,7 @@ namespace CLCMinesweeperApp.Controllers
 
         public ActionResult Login(UserLogin user)
         {
-            SecurityService securityService = new SecurityService();
-
-
+            
             if (securityService.Authenticate(user))
             {
                 Session["user"] = user;
