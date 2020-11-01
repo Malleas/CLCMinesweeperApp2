@@ -48,6 +48,7 @@ namespace CLCMinesweeperApp.Services.Business
                     }
                     else
                     {
+                        logger.Info("New user created successfully.");
                         results = true;
                     }
                 }
@@ -60,7 +61,7 @@ namespace CLCMinesweeperApp.Services.Business
                     connection.Close();
                 }
             }
-            logger.Info("New user created successfully.");
+            
             return results;
         }
 

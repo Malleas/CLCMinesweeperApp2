@@ -111,6 +111,7 @@ namespace CLCMinesweeperApp.Controllers
             string[] strArr = Value.Split('|');
             int time = int.Parse(strArr[0]);
             int clicks = int.Parse(strArr[1]);
+            GameServicesController gameService = new GameServicesController();
             gameService.SaveStats(time, clicks);
 
 
@@ -125,25 +126,32 @@ namespace CLCMinesweeperApp.Controllers
             return View("Results", success);
         }
 
-     
+        [HttpPost]
+
+        public ActionResult onRightClick(string button)
+        {
+
+            string[] strArr = button.Split('|');
+            int row = int.Parse(strArr[0]);
+            int col = int.Parse(strArr[1]);
+            board.Grid[row, col].Flag = true;
+            return PartialView("_GameBoard", board);
+        }
+
+
 
         [HttpPost]
 
-        public ActionResult OnClick(string indexes, string clickStatus)
+        public ActionResult OnClick(string button)
         {
 
-            string[] strArr = indexes.Split('|');
+            string[] strArr = button.Split('|');
             int row = int.Parse(strArr[0]);
             int col = int.Parse(strArr[1]);
             int currentLiveCount = 0;
             int currentVisitedCount = 0;
 
-            if (clickStatus.Equals("3"))
-            {
-                board.Grid[row, col].Flag = true;
-                logger.Info("Button: " + row + "," + col + " pushed.");
-                return PartialView("_GameBoard", board);
-            }
+
 
             clickCount = clickCount + 1;
             Console.Write("Click Count = " + clickCount);

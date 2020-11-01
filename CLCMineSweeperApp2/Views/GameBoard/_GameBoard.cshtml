@@ -90,43 +90,31 @@
         }
     </style>
 
-      <script>
-
+    <script>
         $(document).ready(function () {
             $(document).contextmenu(function () {
                 return false;
             });
             $(".game-button").mousedown(function (event) {
-                if (event.which == 1) {
-
-                    document.getElementById("clickStatus").value = 1;
-                    document.getElementById("indexes").value = this.getAttribute("value");
-                    document.getElementById("myForm").submit(document.getElementById("indexes").value, document.getElementById("clickStatus").value);
-
-                }
-
-                else if(event.which==3) {
+                if (event.which == 3) {
                     console.log("event 3. right click");
                     console.log(this.getAttribute("value"));
 
-                    //hidden field to 1 if it was a right click
-                    document.getElementById("clickStatus").value = 3;
-                    document.getElementById("indexes").value = this.getAttribute("value");
-
-
-                    console.log("submitting form");
+                    $.post('@Url.Action("OnRightClick", "GameBoard")', { button: this.getAttribute("value") }, function (data) {
 
 
 
-                    document.getElementById("myForm").submit(document.getElementById("indexes").value, document.getElementById("clickStatus").value);
+                    });
                 }
             });
         });
 
-
-
-
     </script>
+
+
+
+
+  
 
     <script>
         var counter = 0;

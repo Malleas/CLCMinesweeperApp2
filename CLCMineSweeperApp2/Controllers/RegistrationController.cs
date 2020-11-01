@@ -5,11 +5,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Unity;
 
 namespace CLCMinesweeperApp.Controllers
 {
     public class RegistrationController : Controller
     {
+
+        [Dependency]
+        public UserService userService { get; set; }
+
+
+
+
         // GET: Registration
         public ActionResult Index()
         {
@@ -20,7 +28,7 @@ namespace CLCMinesweeperApp.Controllers
 
         public ActionResult Registration(Player player)
         {
-            UserService userService = new UserService();
+            
 
 
             if (userService.CreateUser(player))

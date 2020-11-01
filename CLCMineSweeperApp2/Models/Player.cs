@@ -9,6 +9,10 @@ namespace CLCMinesweeperApp.Models
 {
     public class Player
     {
+        public Player()
+        {
+
+        }
         public Player(string firstName, string lastname, Gender gender, string age, States state, string emailAddress, string userName, string password)
         {
             this.firstName = firstName;
