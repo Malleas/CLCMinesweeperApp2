@@ -38,7 +38,12 @@ namespace CLCMinesweeperApp.Services.Data
                             string decryptedPassword = Decrypt(reader.GetString(1));
                             if (reader.GetString(0).Equals(user.userName) && decryptedPassword.Equals(user.password))
                             {
+                                logger.Info("User: " + user.userName + " logged in succesfully.");
                                 results = true;
+                            }
+                            else
+                            {
+                                logger.Info("Failed to login. Incorrect login credentials for User: "  + user.userName );
                             }
                         }
                     }
@@ -52,7 +57,7 @@ namespace CLCMinesweeperApp.Services.Data
                     connection.Close();
                 }
             }
-            logger.Info("User: " + user.userName + " logged in succesfully.");
+            
             return results;
 
 
